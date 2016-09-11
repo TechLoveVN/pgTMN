@@ -476,7 +476,7 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
+        //console.log('Received Event: ' + id);
     }
 };
 
@@ -560,14 +560,12 @@ function playAudio(src) {
 // onSuccess Callback
 //
 function onSuccess() {
-    console.log("playAudio():Audio Success");
+    //console.log("playAudio():Audio Success");
 }
 
 // onError Callback
 //
 function onError(error) {
-    alert('code: '    + error.code    + '\n' +
-          'message: ' + error.message + '\n');
 }
 
 // Set audio position
@@ -576,8 +574,18 @@ function setAudioPosition(position) {
     document.getElementById('audio_position').innerHTML = position;
 }
 
+setTimeout(function(){
+	if(window.location.hash.length == 0){
+		$('.goback').css('opacity', '0');
+	}
+	else{
+		$('.goback').css('opacity', '1');
+	}
+	
+}, 50);
 
 $(window).load(function(){
+	
 	
 	$('a').on('click', function(){
 		
@@ -587,7 +595,12 @@ $(window).load(function(){
 			}
 			else{
 				$('.goback').css('opacity', '1');
+				
+				if(window.location.hash == '#recording'){
+					location.reload();
+				}
 			}
+			
 		}, 50);
 		
 	});
@@ -619,7 +632,7 @@ $(window).load(function(){
 				playAudio('sounds/1.wav');
 			}, 300);
 			
-		}, 500);
+		}, 1000);
 		
 	});
 	
@@ -640,7 +653,7 @@ $(window).load(function(){
 		
 		setTimeout(function(){
 			$('.front').removeClass('initial');
-		}, 600);
+		}, 1100);
 		
 	});
 	
@@ -650,7 +663,7 @@ $(window).load(function(){
 			setTimeout(function(){
 				$('.front').html(render_answer(answers[window.random_number].title,answers[window.random_number].text));
 				$(this).addClass('donothing').removeClass('cardready');
-			}, 1000);
+			}, 1200);
 		}
 		playAudio('sounds/2.wav');
 	});
